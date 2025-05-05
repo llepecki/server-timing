@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +33,7 @@ public class ServerTimingTracker
         _timings[token.Key] = (record.Name, record.Span.EndAt(_timeProvider.GetUtcNow().ToUnixTimeMilliseconds()));
     }
 
-    public StringValues GetHeaderValues() => _timings.Count == 0
-        ? StringValues.Empty
-        : new StringValues(_timings.Values
-            .Select(record => $"{record.Name};dur={record.Span.EndedAt - record.Span.StartedAt}")
-            .ToArray());
+    public override string ToString() => _timings.Count == 0
+        ? string.Empty
+        : string.Join(", ", _timings.Values.Select(record => $"{record.Name};dur={record.Span.EndedAt - record.Span.StartedAt}"));
 }

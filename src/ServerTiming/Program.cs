@@ -18,7 +18,7 @@ builder.Services
 
 var app = builder.Build();
 
-app.MapGet("/echo", async ([FromQuery] string text, ServerTimingTracker tracker, FakeFile file, FakeDatabase database, CancellationToken cancellationToken) =>
+app.MapGet("/echo", async ([FromQuery] string text, FakeFile file, FakeDatabase database, ServerTimingTracker tracker, CancellationToken cancellationToken) =>
 {
     using ServerTimingToken token = tracker.Start("echo");
 

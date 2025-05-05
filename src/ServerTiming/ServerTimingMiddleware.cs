@@ -17,7 +17,7 @@ public class ServerTimingMiddleware : IMiddleware
         var context = (HttpContext)ctx;
 
         var tracker = context.RequestServices.GetRequiredService<ServerTimingTracker>();
-        context.Response.Headers.Append("Server-Timing", tracker.GetHeaderValues());
+        context.Response.Headers.Append("Server-Timing", tracker.ToString());
 
         return Task.CompletedTask;
     }
